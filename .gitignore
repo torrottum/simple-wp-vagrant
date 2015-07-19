@@ -1,0 +1,6 @@
+.vagrant
+.DS_Store
+log/*.log
+
+www/
+!www/default
