@@ -1,0 +1,3 @@
+path: htdocs
+require:
+  - ../../config/wp-cli/config.php
