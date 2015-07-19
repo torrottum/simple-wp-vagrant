@@ -46,3 +46,10 @@ php5enmod mcrypt
 
 # Add external mysql user
 echo "GRANT ALL PRIVILEGES ON *.* TO 'external'@'%' IDENTIFIED BY 'external';" | mysql -u root -proot
+
+# Install WP-CLI
+echo "Installing WP-CLI ..."
+curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x /usr/local/bin/wp
+# Completions
+curl -o /usr/share/bash-completion/completions/wp https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash
