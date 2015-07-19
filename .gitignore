@@ -7,3 +7,4 @@ www/*
 !www/default/*
 !www/example
 !www/example/*
+www/example/htdocs
