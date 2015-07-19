@@ -2,5 +2,8 @@
 .DS_Store
 log/*.log
 
-www/
+www/*
 !www/default
+!www/default/*
+!www/example
+!www/example/*
