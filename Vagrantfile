@@ -37,6 +37,7 @@ Vagrant.configure(2) do |config|
   end
   config.vm.synced_folder "config", "/srv/config"
   config.vm.synced_folder "log", "/srv/log", :owner => "www-data"
+  config.vm.synced_folder "database", "/srv/database"
 
   if defined?(VagrantPlugins::HostsUpdater)
     paths = Dir[File.join(vagrant_dir, 'www', '**', 'hosts')]
@@ -49,6 +50,18 @@ Vagrant.configure(2) do |config|
     # Pass the found host names to the hostsupdater plugin so it can perform magic.
     config.hostsupdater.aliases = hosts
     config.hostsupdater.remove_on_suspend = true
+  end
+
+  if defined? VagrantPlugins::Triggers
+    config.trigger.before :halt, :stdout => true do
+      run "vagrant ssh -c 'db_backup'"
+    end
+    config.trigger.before :suspend, :stdout => true do
+      run "vagrant ssh -c 'db_backup'"
+    end
+    config.trigger.before :destroy, :stdout => true do
+      run "vagrant ssh -c 'db_backup'"
+    end
   end
 
 end

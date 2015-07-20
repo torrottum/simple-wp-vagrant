@@ -47,6 +47,23 @@ php5enmod mcrypt
 # Add external mysql user
 echo "GRANT ALL PRIVILEGES ON *.* TO 'external'@'%' IDENTIFIED BY 'external';" | mysql -u root -proot
 
+# Add mysql backup script
+cat << 'EOF' > /usr/local/bin/db_backup
+#!/bin/bash
+echo "Backing up databases ..."
+mysql -uroot -proot -e 'show databases' | \
+grep -v -F "information_schema" | \
+grep -v -F "performance_schema" | \
+grep -v -F "mysql" | \
+grep -v -F "test" | \
+grep -v -F "Database" | \
+while read dbname; do
+	mysqldump -uroot -proot "$dbname" > /srv/database/"$dbname".sql && echo "Database $dbname backed up ...";
+done
+EOF
+
+chmod +x /usr/local/bin/db_backup
+
 # Install WP-CLI
 echo "Installing WP-CLI ..."
 curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

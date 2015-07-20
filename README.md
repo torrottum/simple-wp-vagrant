@@ -8,6 +8,7 @@ A Vagrant setup for WordPress with Ubuntu 14.04 (Trusty), Nginx, MySQL, and PHP.
 * WP-CLI
 * git
 * Fast site creation (on every `vagrant up`)
+* Database backups (please read [this](#database-backups))
 
 ### Why use this instead of [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV/)?
 It's much faster to create sites with Simple WP Vagrant. This is because you don't need to reprovision and check for updates for the whole box each time you just want to add a new site.
@@ -18,7 +19,8 @@ On each `vagrant up` it will copy over the server configuration files.
 1. Install [Vagrant](https://www.vagrantup.com) and [Virtualbox](https://www.virtualbox.org)
 1. Install recommended vagrant plugin
 	* `vagrant plugin install vagrant-hostsupdater`
-	* This step is not required but recommended. The vagrant-hostsupdater plugin automatically adds the sites to your machine's hosts file.
+    * `vagrant plugin install vagrant-triggers`
+	* This step is not required but recommended. The vagrant-hostsupdater plugin automatically adds the sites to your machine's hosts file. And the vagrant-triggers plugins allows us to take database backups on `vagrant halt`, `vagrant destroy`, and `vagrant suspend`
 1. Clone the repo and run `vagrant up`
 	* `git clone https://github.com/torrottum/simple-wp-vagrant`
 	* `cd simple-wp-vagrant`
@@ -115,6 +117,8 @@ require:
 * External username: `external`
 * External password: `external`
 
+## Database backups
+Databases are backed up on `vagrant halt`, `vagrant destroy`, and `vagrant suspend`. However there are no automated importing procedure. If you destroy the vagrant box, you'll have to import them by yourself.
 
 ## Credits
 Much of the configuration and provisioning is taken from [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV/)

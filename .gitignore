@@ -8,3 +8,5 @@ www/*
 !www/example
 !www/example/*
 www/example/htdocs
+
+database/*.sql
